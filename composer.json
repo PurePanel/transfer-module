@@ -1,0 +1,9 @@
+{
+    "name": "visiosoft/transfer-module",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Visiosoft\\TransferModule\\": "src/"
+        }
+    }
+}
