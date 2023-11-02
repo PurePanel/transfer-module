@@ -5,5 +5,8 @@
         "psr-4": {
             "Visiosoft\\TransferModule\\": "src/"
         }
+    },
+    "require": {
+        "myclabs/php-enum": "^1.7"
     }
 }
