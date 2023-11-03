@@ -58,6 +58,8 @@ class DirectoryTransferJob implements ShouldQueue
 
         if ($this->callNextStep && $this->transfer->getTransferDatabase()) {
             ImportSqlJob::dispatch($this->transfer);
+        }else{
+            $this->transfer->setStatus(TransferStatuses::TRANSFER_COMPLETED());
         }
     }
 }

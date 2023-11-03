@@ -30,7 +30,6 @@ class TransferStatuses extends Enum
      * @method static self SQL_IMPORT_FAILED()
      * @method static self SOURCE_SQL_CREDENTIALS_INVALID()
      * @method static self TARGET_SQL_CREDENTIALS_INVALID()
-     * @method static self TRANSFER_STARTED()
      * @method static self TRANSFER_COMPLETED()
      */
 
@@ -56,4 +55,5 @@ class TransferStatuses extends Enum
     public const SQL_IMPORT_FAILED = 19;
     public const SOURCE_SQL_CREDENTIALS_INVALID = 20;
     public const TARGET_SQL_CREDENTIALS_INVALID = 21;
+    public const TRANSFER_COMPLETED = 22;
 }
