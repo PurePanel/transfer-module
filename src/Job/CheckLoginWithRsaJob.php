@@ -21,6 +21,8 @@ class CheckLoginWithRsaJob implements ShouldQueue
     private bool $callNextStep;
     private TransferRepositoryInterface $transferRepository;
 
+    public $tries = 1;
+    
     public function __construct(TransferModel $transfer, bool $isInitial = true, $callNextStep = true)
     {
         $this->transfer = $transfer;

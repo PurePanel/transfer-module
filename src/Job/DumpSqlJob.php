@@ -19,7 +19,10 @@ class DumpSqlJob implements ShouldQueue
     private TransferModel $transfer;
     private bool $callNextStep;
     private TransferRepositoryInterface $transferRepository;
+
     public $timeout = 0;
+
+    public $tries = 1;
 
     public function __construct(TransferModel $transfer, $callNextStep = true)
     {

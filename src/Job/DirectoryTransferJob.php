@@ -17,7 +17,10 @@ class DirectoryTransferJob implements ShouldQueue
 
     private TransferModel $transfer;
     private bool $callNextStep;
+
     public $timeout = 0;
+
+    public $tries = 1;
 
     public function __construct(TransferModel $transfer, $callNextStep = true)
     {

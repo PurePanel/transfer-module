@@ -20,6 +20,7 @@ class TransferRsaJob implements ShouldQueue
     private bool $callNextStep;
     private TransferRepositoryInterface $transferRepository;
 
+    public $tries = 1;
     public function __construct(TransferModel $transfer, $callNextStep = true)
     {
         $this->transfer = $transfer;

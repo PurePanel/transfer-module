@@ -4,6 +4,8 @@ namespace Visiosoft\TransferModule\Console\Command;
 
 use Illuminate\Console\Command;
 use Visiosoft\TransferModule\Transfer\Helpers\SSHAgent;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class DirectoryTransferCommand extends Command
 {
@@ -35,17 +37,21 @@ class DirectoryTransferCommand extends Command
             return self::INVALID_CREDENTIALS;
         }
 
-        $rsyncCommand = 'rsync -avzu --delete --no-times --stats -e "ssh -i ' . $targetRsaPath . ' -p ' . $sourcePort . '" ' . $sourceUsername . '@' . $sourceIp . ':' . $sourcePath . ' ' . $targetPath;
+        $rsyncCommand = 'rsync -azu --delete --no-times --stats -e "ssh -i ' . $targetRsaPath . ' -p ' . $sourcePort . '" ' . $sourceUsername . '@' . $sourceIp . ':' . $sourcePath . ' ' . $targetPath;
 
         $transfer = $sshAgent->exec($rsyncCommand);
-
-        if (!$this->checkNumberOfFiles($transfer)) {
-            return self::DIRECTORY_TRANSFER_FAIL;
+        if (empty($transfer) || $this->checkNumberOfFiles($transfer)) {
+            $sshAgent->logout();
+            return self::DIRECTORY_TRANSFERRED;
         }
 
+        $log = new Logger('directory_transfer');
+        $log->pushHandler(new StreamHandler(storage_path('logs/directory_transfer.log')), Logger::ERROR);
+        $log->error($transfer);
         $sshAgent->logout();
+        return self::DIRECTORY_TRANSFER_FAIL;
 
-        return self::DIRECTORY_TRANSFERRED;
+
     }
 
     function checkNumberOfFiles($text)
