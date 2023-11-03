@@ -35,23 +35,26 @@ class DirectoryTransferCommand extends Command
             return self::INVALID_CREDENTIALS;
         }
 
-        $rsyncCommand = 'rsync -avzu --delete -e "ssh -i ' . $targetRsaPath . ' -p ' . $sourcePort . '" ' . $sourceUsername . '@' . $sourceIp . ':' . $sourcePath . ' ' . $targetPath;
+        $rsyncCommand = 'rsync -avzu --delete --no-times --stats -e "ssh -i ' . $targetRsaPath . ' -p ' . $sourcePort . '" ' . $sourceUsername . '@' . $sourceIp . ':' . $sourcePath . ' ' . $targetPath;
 
         $transfer = $sshAgent->exec($rsyncCommand);
 
-        if (!$this->isReceivingFileList($transfer)) {
+        if (!$this->checkNumberOfFiles($transfer)) {
             return self::DIRECTORY_TRANSFER_FAIL;
         }
-        
+
         $sshAgent->logout();
 
         return self::DIRECTORY_TRANSFERRED;
     }
 
-    private function isReceivingFileList($inputString): bool
+    function checkNumberOfFiles($text)
     {
-        $pattern1 = '/receiving file list/i';
-        $pattern2 = '/receiving incremental file list/i';
-        return preg_match($pattern1, $inputString) === 1 || preg_match($pattern2, $inputString) === 1;
+        if (preg_match('/Number of files: (\d+)/', $text, $matches)) {
+            $numFiles = intval($matches[1]);
+            return $numFiles > 0;
+        }
+        return false;
     }
+
 }
