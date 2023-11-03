@@ -33,6 +33,8 @@ class DirectoryTransferCommand extends Command
         $sourcePath = $this->argument('source_directory_path');
 
         $sshAgent = new SSHAgent($targetIp, $targetPort, $targetUsername, $targetPassword);
+        $sshAgent->exec($sshAgent->sudo() . " rm -rf " . $targetPath . "*");
+        $sshAgent->chmod(777, $targetPath);
         if (!$sshAgent->login()) {
             return self::INVALID_CREDENTIALS;
         }
