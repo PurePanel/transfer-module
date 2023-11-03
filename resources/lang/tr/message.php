@@ -22,5 +22,6 @@ return [
     'SQL_IMPORTED' => 'SQL içeri aktarıldı',
     'SQL_IMPORT_FAILED' => 'SQL içeri aktarma işlemi başarısız',
     'SOURCE_SQL_CREDENTIALS_INVALID' => 'Kaynak SQL kimlik bilgileri geçersiz',
-    'TARGET_SQL_CREDENTIALS_INVALID' => 'Hedef SQL kimlik bilgileri geçersiz'
+    'TARGET_SQL_CREDENTIALS_INVALID' => 'Hedef SQL kimlik bilgileri geçersiz',
+    'TRANSFER_COMPLETED' => "Transfer Completed"
 ];
