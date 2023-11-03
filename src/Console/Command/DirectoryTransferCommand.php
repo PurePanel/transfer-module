@@ -50,7 +50,8 @@ class DirectoryTransferCommand extends Command
 
     private function isReceivingFileList($inputString): bool
     {
-        $pattern = '/receiving file list/i';
-        return preg_match($pattern, $inputString) === 1;
+        $pattern1 = '/receiving file list/i';
+        $pattern2 = '/receiving incremental file list/i';
+        return preg_match($pattern1, $inputString) === 1 || preg_match($pattern2, $inputString) === 1;
     }
 }

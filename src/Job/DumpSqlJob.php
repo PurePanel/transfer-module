@@ -19,6 +19,7 @@ class DumpSqlJob implements ShouldQueue
     private TransferModel $transfer;
     private bool $callNextStep;
     private TransferRepositoryInterface $transferRepository;
+    public $timeout = 0;
 
     public function __construct(TransferModel $transfer, $callNextStep = true)
     {
@@ -29,6 +30,7 @@ class DumpSqlJob implements ShouldQueue
 
     public function handle()
     {
+        $this->transfer->setStatus(TransferStatuses::SQL_DUMP_STARTED());
         $dumpSql = Artisan::call('transfer:dump_sql',
             [
                 'source_ip' => $this->transfer->getSourceIp(),

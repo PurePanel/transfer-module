@@ -39,11 +39,11 @@ class DumpSqlCommand extends Command
         $dump = $sshAgent->sqlDump($sourceDatabase, $sourceDatabaseUser, $sourceDatabasePassword, $dumpName, $dumpDirectory);
 
 
-        if (!$this->warningPrinted($dump)) {
-            return self::DUMP_FAILED;
+        if (strlen($dump) == 0  || $this->warningPrinted($dump)) {
+            return self::DUMP_SUCCESS;
         }
 
-        return self::DUMP_SUCCESS;
+        return self::DUMP_FAILED;
     }
 
     public function warningPrinted($inputString)

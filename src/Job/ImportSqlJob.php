@@ -18,6 +18,7 @@ class ImportSqlJob implements ShouldQueue
 
     private TransferModel $transfer;
     private bool $callNextStep;
+    public $timeout = 0;
 
     public function __construct(TransferModel $transfer, $callNextStep = true)
     {
@@ -28,7 +29,7 @@ class ImportSqlJob implements ShouldQueue
 
     public function handle()
     {
-        $this->transfer->setStatus(TransferStatuses::SQL_DUMP_STARTED());
+        $this->transfer->setStatus(TransferStatuses::SQL_IMPORT_STARTED());
         $target = $this->transfer->getTarget();
         $targetServer = $target->getServer();
         $importSql = Artisan::call('transfer:import_sql',
