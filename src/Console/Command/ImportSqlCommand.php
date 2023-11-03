@@ -3,8 +3,9 @@
 namespace Visiosoft\TransferModule\Console\Command;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use Visiosoft\TransferModule\Transfer\Helpers\SSHAgent;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class ImportSqlCommand extends Command
 {
@@ -38,10 +39,20 @@ class ImportSqlCommand extends Command
 
         $import = $sshAgent->sqlImport($sourceDatabase, $sourceDatabaseUser, $sourceDatabasePassword, $dumpPath);
 
-        if (empty($import)) {
+        if (empty($import) || $this->isPasswordInsecure($import)) {
             return self::DUMP_SUCCESS;
-        } else {
-            return self::DUMP_FAILED;
         }
+
+        $log = new Logger('sql_transfer');
+        $log->pushHandler(new StreamHandler(storage_path('logs/sql_transfer.log')), Logger::ERROR);
+        $log->error($import);
+
+        return self::DUMP_FAILED;
+    }
+
+    function isPasswordInsecure($inputString): bool
+    {
+        $pattern = '/Using a password on the command line interface can be insecure/i';
+        return preg_match($pattern, $inputString) === 1;
     }
 }

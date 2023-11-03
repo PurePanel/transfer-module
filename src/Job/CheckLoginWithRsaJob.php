@@ -22,7 +22,7 @@ class CheckLoginWithRsaJob implements ShouldQueue
     private TransferRepositoryInterface $transferRepository;
 
     public $tries = 1;
-    
+
     public function __construct(TransferModel $transfer, bool $isInitial = true, $callNextStep = true)
     {
         $this->transfer = $transfer;
@@ -43,7 +43,7 @@ class CheckLoginWithRsaJob implements ShouldQueue
         }
         $sshAgent->logout();
 
-        $rsyncTestCommand = 'rsync -e "ssh -i ' . $targetServer->getRsaPath() . ' -p ' . $this->transfer->getSourcePort() . '" ' . $this->transfer->getSourceUsername() . '@' . $this->transfer->getSourceIp() . ':' . $this->transfer->getSourceDirectoryPath() . ' ' . $target->getDirectoryPath();
+        $rsyncTestCommand = 'rsync -e "ssh -o StrictHostKeyChecking=no -i ' . $targetServer->getRsaPath() . ' -p ' . $this->transfer->getSourcePort() . '" ' . $this->transfer->getSourceUsername() . '@' . $this->transfer->getSourceIp() . ':' . $this->transfer->getSourceDirectoryPath() . ' ' . $target->getDirectoryPath();
 
         if ($this->isSkippingDirectory($sshAgent->exec($rsyncTestCommand))) {
             $this->transfer->setStatus(TransferStatuses::LOGIN_WITH_RSA_SUCCESS());

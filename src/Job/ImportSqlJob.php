@@ -55,7 +55,7 @@ class ImportSqlJob implements ShouldQueue
             return;
         }
 
-        $this->transfer->setStatus(TransferStatuses::SQL_IMPORT_STARTED());
+        $this->transfer->setStatus(TransferStatuses::SQL_IMPORTED());
 
         if ($this->callNextStep) {
             $this->transfer->setStatus(TransferStatuses::TRANSFER_COMPLETED());
