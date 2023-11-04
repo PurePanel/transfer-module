@@ -33,13 +33,14 @@ class DirectoryTransferCommand extends Command
         $sourcePath = $this->argument('source_directory_path');
 
         $sshAgent = new SSHAgent($targetIp, $targetPort, $targetUsername, $targetPassword);
-        $sshAgent->exec($sshAgent->sudo() . " rm -rf " . $targetPath . "*");
-        $sshAgent->chmod(777, $targetPath);
         if (!$sshAgent->login()) {
             return self::INVALID_CREDENTIALS;
         }
 
-        $rsyncCommand = 'rsync -azu --delete --no-times --stats -e "ssh -i ' . $targetRsaPath . ' -p ' . $sourcePort . '" ' . $sourceUsername . '@' . $sourceIp . ':' . $sourcePath . ' ' . $targetPath;
+        $sshAgent->exec($sshAgent->sudo() . " rm -rf " . $targetPath . "*");
+        $sshAgent->chmod(777, $sshAgent->removeTrailingSlash($targetPath));
+
+        $rsyncCommand = 'rsync -azu --delete --no-perms --no-times --stats -e "ssh -i ' . $targetRsaPath . ' -p ' . $sourcePort . '" ' . $sourceUsername . '@' . $sourceIp . ':' . $sourcePath . ' ' . $targetPath;
 
         $transfer = $sshAgent->exec($rsyncCommand);
         if (empty($transfer) || $this->checkNumberOfFiles($transfer)) {
