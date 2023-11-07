@@ -9,4 +9,12 @@ return [
             'delete' => 'Can delete transfers?',
         ],
     ],
+    'server' => [
+        'name'   => 'Server',
+        'option' => [
+            'read'   => 'Can read server?',
+            'write'  => 'Can create/edit server?',
+            'delete' => 'Can delete server?',
+        ],
+    ],
 ];

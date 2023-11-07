@@ -1,6 +1,10 @@
 <?php namespace Visiosoft\TransferModule;
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
+use Visiosoft\TransferModule\Server\Contract\ServerRepositoryInterface;
+use Visiosoft\TransferModule\Server\ServerRepository;
+use Anomaly\Streams\Platform\Model\Transfer\TransferServerEntryModel;
+use Visiosoft\TransferModule\Server\ServerModel;
 use Visiosoft\TransferModule\Console\Command\CheckIdRsaCommand;
 use Visiosoft\TransferModule\Console\Command\DirectoryTransferCommand;
 use Visiosoft\TransferModule\Console\Command\DumpSqlCommand;
@@ -36,6 +40,10 @@ class TransferModuleServiceProvider extends AddonServiceProvider
         'admin/transfer' => 'Visiosoft\TransferModule\Http\Controller\Admin\TransfersController@index',
         'admin/transfer/create' => 'Visiosoft\TransferModule\Http\Controller\Admin\TransfersController@create',
         'admin/transfer/edit/{id}' => 'Visiosoft\TransferModule\Http\Controller\Admin\TransfersController@edit',
+        'admin/transfer/server'           => 'Visiosoft\TransferModule\Http\Controller\Admin\ServerController@index',
+        'admin/transfer/server/create'    => 'Visiosoft\TransferModule\Http\Controller\Admin\ServerController@create',
+        'admin/transfer/server/edit/{id}' => 'Visiosoft\TransferModule\Http\Controller\Admin\ServerController@edit',
+        'admin/transfer/server/transfer'           => 'Visiosoft\TransferModule\Http\Controller\Admin\ServerController@transfer',
     ];
 
     /**
@@ -44,6 +52,7 @@ class TransferModuleServiceProvider extends AddonServiceProvider
      * @type array|null
      */
     protected $bindings = [
+        TransferServerEntryModel::class => ServerModel::class,
         TransferTransfersEntryModel::class => TransferModel::class,
     ];
 
@@ -53,6 +62,7 @@ class TransferModuleServiceProvider extends AddonServiceProvider
      * @type array|null
      */
     protected $singletons = [
+        ServerRepositoryInterface::class => ServerRepository::class,
         TransferRepositoryInterface::class => TransferRepository::class,
     ];
 }

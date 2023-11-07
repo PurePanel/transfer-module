@@ -28,6 +28,15 @@ class TransferModule extends Module
         'transfers' => [
             'buttons' => [
                 'new_transfer',
+                'new_server_transfer' => [
+                    'href' => '/admin/transfer/server/transfer',
+                    'icon' => 'plus'
+                ],
+            ],
+        ],
+        'server' => [
+            'buttons' => [
+                'new_server',
             ],
         ],
     ];
