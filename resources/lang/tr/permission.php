@@ -9,4 +9,12 @@ return [
             'delete' => 'Can delete transfers?',
         ],
     ],
+    'server' => [
+        'name'   => 'Sunucu',
+        'option' => [
+            'read'   => 'Okunabilir mi?',
+            'write'  => 'Oluşturulur/Düzenlenebilir mi?',
+            'delete' => 'Silinebilir mi?',
+        ],
+    ],
 ];

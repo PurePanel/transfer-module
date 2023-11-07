@@ -6,4 +6,9 @@ return [
         'write',
         'delete',
     ],
+    'server' => [
+        'read',
+        'write',
+        'delete',
+    ],
 ];

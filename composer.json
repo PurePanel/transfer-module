@@ -1,6 +1,19 @@
 {
     "name": "visiosoft/transfer-module",
+    "description": "Provides Site Transfer tools for Pure Panel.",
     "type": "streams-addon",
+    "authors": [
+        {
+            "name": "Emrullah Ardıç",
+            "email": "emrullah@visiosoft.com.tr",
+            "role": "Owner"
+        },
+        {
+            "name": "Vedat Akdoğan",
+            "email": "vedatakdogan@live.com",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Visiosoft\\TransferModule\\": "src/"

@@ -23,5 +23,7 @@ return [
     'SQL_IMPORT_FAILED' => 'SQL import failed',
     'SOURCE_SQL_CREDENTIALS_INVALID' => 'Invalid source SQL credentials',
     'TARGET_SQL_CREDENTIALS_INVALID' => 'Invalid target SQL credentials',
-    'TRANSFER_COMPLETED' => "Transfer Completed"
+    'TRANSFER_COMPLETED' => "Transfer Completed",
+
+    'not_found' => ":name not found!",
 ];
