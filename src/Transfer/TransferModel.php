@@ -68,7 +68,7 @@ class TransferModel extends TransferTransfersEntryModel implements TransferInter
 
     public function getSourceDirectoryPath(): string
     {
-        return $this->source_directory_path;
+        return $this->source_directory_path.'/';
     }
 
     /**

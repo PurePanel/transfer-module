@@ -49,7 +49,11 @@ class TransferTableBuilder extends TableBuilder
      *
      * @var array
      */
-    protected $options = [];
+    protected $options = [
+        'order_by' => [
+            'created_at' => 'DESC',
+        ],
+    ];
 
     /**
      * The table assets.
