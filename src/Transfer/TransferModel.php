@@ -76,7 +76,7 @@ class TransferModel extends TransferTransfersEntryModel implements TransferInter
      */
     public function getTarget(): SiteModel
     {
-        return $this->target;
+        return SiteModel::withTrashed()->find($this->target_id);
     }
 
     public function getSqlDumpName(): string
