@@ -42,6 +42,11 @@ class ServerController extends AdminController
         return $form->render($id);
     }
 
+    /**
+     * @param ServerTransferFormBuilder $builder
+     * @return \Symfony\Component\HttpFoundation\Response
+     * Shows the transfer form.
+     */
     public function transfer(ServerTransferFormBuilder $builder)
     {
         return $builder->render();
