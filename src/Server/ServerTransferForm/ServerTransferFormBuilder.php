@@ -79,7 +79,9 @@ class ServerTransferFormBuilder extends FormBuilder
      *
      * @var array
      */
-    protected $options = [];
+    protected $options = [
+        'redirect' => '/admin/transfer'
+    ];
 
     /**
      * The form sections.
