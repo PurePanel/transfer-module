@@ -1,5 +1,5 @@
 {
-    "name": "visiosoft/transfer-module",
+    "name": "purepanel/transfer-module",
     "description": "Provides Site Transfer tools for Pure Panel.",
     "type": "streams-addon",
     "authors": [
